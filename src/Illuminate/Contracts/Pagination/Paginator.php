@@ -41,7 +41,7 @@ interface Paginator
      *
      * @return $this
      */
-    public function withQueryString();
+    public function withQueryString(array $except = []);
 
     /**
      * The URL for the next page, or null.

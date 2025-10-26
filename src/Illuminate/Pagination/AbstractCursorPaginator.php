@@ -327,9 +327,13 @@ abstract class AbstractCursorPaginator implements Htmlable, Stringable
      *
      * @return $this
      */
-    public function withQueryString()
+    public function withQueryString(array $except = [])
     {
         if (! is_null($query = Paginator::resolveQueryString())) {
+            if (!empty($except)) {
+                $query = collect($query)->except($except)->all();
+            }
+
             return $this->appends($query);
         }
 

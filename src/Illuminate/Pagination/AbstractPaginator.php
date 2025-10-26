@@ -257,10 +257,17 @@ abstract class AbstractPaginator implements CanBeEscapedWhenCastToString, Htmlab
      *
      * @return $this
      */
-    public function withQueryString()
+    public function withQueryString(array $except = [])
     {
         if (isset(static::$queryStringResolver)) {
-            return $this->appends(call_user_func(static::$queryStringResolver));
+
+            if (! empty($except)) {
+                $queryString = collect(call_user_func(static::$queryStringResolver))
+                    ->except($except)
+                    ->all();
+            }
+
+            return $this->appends($queryString ?? call_user_func(static::$queryStringResolver));
         }
 
         return $this;

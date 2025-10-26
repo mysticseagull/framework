@@ -41,7 +41,7 @@ interface CursorPaginator
      *
      * @return $this
      */
-    public function withQueryString();
+    public function withQueryString(array $except = []);
 
     /**
      * Get the URL for the previous page, or null.
